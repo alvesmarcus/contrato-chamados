@@ -1,0 +1,150 @@
+Contrato Inicial - API de Chamados
+
+Contrato Inicial - API de Chamados
+
+Integrantes:
+- Andrew Lippy de Mattos Pereira
+- Cauã Pereira Menezes
+- Marcus Vinicius Alves de Oliveira
+- Matheus Prates Gaspar Silva
+- Nathan de Faria Alves Alvarenga
+- Roberto Kleber da Fonseca Ponce Junior
+
+Formato das mensagens:
+- Requisições e respostas utilizam JSON.
+
+Recurso: chamados
+Finalidade: registrar pedidos de suporte interno
+
+Atributos:
+- id: número inteiro
+- titulo: texto
+- descricao: texto
+- prioridade: texto
+- status: texto
+
+Obrigatórios na criação:
+- titulo
+- descricao
+- prioridade
+
+Prioridade:
+- baixa
+- media
+- alta
+
+Status:
+- aberto
+- em_andamento
+- resolvido
+
+Endpoints:
+
+1. Listar chamados
+Método: GET
+URI: /chamados
+Status de sucesso: 200
+
+2. Consultar um chamado
+Método: GET
+URI: /chamados/{id}
+
+Status de sucesso: 200
+Erro 404 - chamado não encontrado
+
+3. Criar Chamado
+Método: POST
+URI: /chamados
+
+Status de sucesso: 201
+Erro: 400 - dados inválidos
+
+4. Atualizar chamado
+Método: PATCH
+URI: /chamados/{id} 
+
+Status de sucesso: 200
+Erros: 
+400 - dados inválidos
+404 - chamado não encontrado 
+
+5. Remover chamado
+Método: DELETE
+URI: /chamados/{id}
+
+Status de sucesso: 204
+Erro: 404 - chamado não encontrado
+
+
+Exemplos de criação:
+
+POST /chamados
+content-Type: application/json
+
+{
+ "titulo": "Impressora não funciona",
+ "descricao": "A impressora do setor não está imprimindo os documentos.",
+ "prioridade": "media"
+}
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+
+{
+ "id":25,
+ "titulo": "Impressora não funciona",
+ "descricao": "A impressora do setor não está imprimindo os documentos.",
+ "prioridade": "media",
+ "status": "aberto"
+}
+
+Exemplo de erro 400:
+
+POST /chamados
+Content-Type: application/json
+
+{
+  "descricao": "A impressora do setor não está imprimindo os documentos.",
+  "prioridade": "media"
+}
+
+HTTP/1.1 400 Bad Request
+Content-Type: application/json
+
+
+{
+  "erro": "Dado inválido",
+  "detalhes": [
+    {
+      "campo":"titulo",
+      "mensagem": "O título é obrigatório."
+    }
+   ]
+}
+
+Exemplo de erro 404:
+
+GET /chamados/9999
+
+HTTP/1.1 404 Not Found
+Content-Type: application/json
+
+{
+ "erro":"Chamado não encontrado",
+ "mensagem":"Não foi encontrado um chamado com o id informado."
+}
+
+
+
+Decisões e dúvidas pendentes:
+
+Decisões:
+- Decidimos que os atributos titulo, descricao e prioridade serão obrigatórios;
+- Decidimos que os níveis de prioridade serão baixa, media e alta;
+- Decidimos que os status serão aberto, em_andamento e resolvido;
+- Decidimos o uso de PATCH para atualização dos chamados.
+
+Duvidas pendentes:
+- Sem dúvidas até então.
+
+
