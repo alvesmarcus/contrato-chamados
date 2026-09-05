@@ -1,0 +1,22 @@
+## Diagrama arquitetural
+
+[Pessoa cliente / atendente]
+        ↓
+[Interface Web / Front-end]
+        ↓
+[API]
+        ↓
+[Back-end / Regras do negócio]
+        ↓
+[Banco de dados]
+
+## Organização inicial do projeto
+projeto-chamados/
+├── README.md
+├── docs/
+│     ├── planejamento-semana-1.md
+│     ├── diagrama-arquitetura.md
+├── frontend/
+├── backend/
+└── database/
+ 
